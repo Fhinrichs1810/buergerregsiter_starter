@@ -32,3 +32,19 @@ def validiere_person(daten: Dict[str, Any]) -> Tuple[bool, List[str]]:
 
     # Ergebnis zurückgeben: True wenn keine Fehler da sind
     return (len(errors) == 0, errors)
+
+
+def parse_and_validate_birth_year(year_str: str) -> int:
+    """
+    Parst ein Geburtsjahr und validiert den Bereich (1900-2025).
+    Raises: ValueError bei ungültigem Format oder Bereich.
+    """
+    try:
+        year = int(year_str.strip())
+    except ValueError:
+        raise ValueError(f"'{year_str}' ist keine gültige Zahl.")
+
+    if not (1900 <= year <= 2025):
+        raise ValueError(f"Das Jahr {year} liegt nicht zwischen 1900 und 2025.")
+        
+    return year
