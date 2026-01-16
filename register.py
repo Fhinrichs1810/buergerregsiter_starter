@@ -1,6 +1,7 @@
 from typing import List, Tuple
 from .validation import validiere_person
 from .models import Person
+from .validation import parse_and_validate_birth_year
 
 
 class Buergerregister:
@@ -43,26 +44,7 @@ class Buergerregister:
         # List Comprehension für Filterung
         return [p for p in self._personen if p.nachname == nachname]
     
-    def parse_birth_year(self, year_str: str) -> int:
-        """
-            Parses a birth year from a string, validating it to be between 1900 and 2025.
-
-            Args:
-                year_str (str): The year string to parse.
-
-            Returns:
-                int: The parsed year as an integer.
-
-         Raises:
-            ValueError: If the year is not a valid integer or out of range.
-            """
-        try:
-            year = int(year_str.strip())
-        except ValueError:
-            raise ValueError("Invalid year format")
-        if not (1900 <= year <= 2025):
-            raise ValueError(f"Year {year} out of range (1900-2025)")
-        return year
+    
 
 
     
