@@ -1,14 +1,21 @@
+import uuid
 from dataclasses import dataclass
 
-@dataclass
+@dataclass(frozen=True)  # frozen=True macht die Klasse hashable für Sets/Dicts
 class Person:
-    """
-    Repräsentiert eine Bürgerin bzw. einen Bürger als einfaches Datenobjekt.
-    """
+    id: uuid.UUID
     vorname: str
     nachname: str
-    geburtsjahr: int
-    wohnort: str
+    geburtsjahr: int  # Hinzugefügt, um die Eindeutigkeit zu erhöhen
+
+    @property
+    def business_key(self):
+        """
+        Erzeugt einen fachlichen Schlüssel für die Duplikatprüfung.
+        Kombination aus normierten Namen und Geburtsjahr.
+        """
+        return (self.nachname.lower(), self.vorname.lower(), self.geburtsjahr)
+
 
     def normalize_name(self, name: str) -> str:
         """
